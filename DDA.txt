@@ -1,0 +1,67 @@
+#include <graphics.h>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+void DDA() {
+    int x1, y1, x2, y2;
+
+    cout << "\nEnter Starting Point: \n";
+    cin >> x1 >> y1;
+
+    cout << "Enter end point: \n";
+    cin >> x2 >> y2;
+
+    float x, y;
+    x = x1;
+    y = y1;
+
+    float Dx = x2 - x1;
+    float Dy = y2 - y1;
+
+    int steps = max(abs(Dx), abs(Dy));
+    // calculate increment in x and y
+    float xinc = Dx / steps;
+    float yinc = Dy / steps;
+
+    // initialize the Graph window
+    // gm is Graphics mode which is a computer display mode that generates image using pixels.
+    // DETECT is a macro defined in "graphics.h" header file
+    int gd = DETECT, gm;
+    // initgraph initializes the graphics system by loading a graphics driver from disk
+    initgraph(&gd, &gm, "");
+    putpixel(round(x), round(y), RED);
+
+    // write line points on the console as a table
+    cout << "Steps" << "\t"
+         << "<X>" << "\t"
+         << "<Y>" << "\t"
+         << "Round(X)" << "\t"
+         << "Round(Y)" << "\n";
+    cout << "=========================================\n";
+
+    // Loop to compute all the line points using DDA Algorithm
+    for (int i = 0; i <= steps; i++) {
+        // write line points on the console
+        cout << i << "\t"
+             << x << "\t"
+             << y << "\t"
+             << round(x) << "\t"
+             << round(y) << "\n";
+
+        // Draw the points on the form
+        putpixel(round(x), round(y), RED);
+
+        x += xinc;
+        y += yinc;
+    }
+
+    getch();
+    closegraph();
+}
+
+int main() {
+    DDA();
+    return 0;
+}

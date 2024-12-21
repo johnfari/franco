@@ -1,0 +1,55 @@
+#include <iostream>
+#include <math.h>
+#include <conio.h>
+#include <graphics.h>
+
+using namespace std;
+
+void lineBresenham() {
+    int x1, y1, x2, y2;
+
+    cout << "Enter (x1, y1): \n";
+    cin >> x1 >> y1;
+
+    cout << "Enter (x2, y2): \n";
+    cin >> x2 >> y2;
+
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+
+    // حساب القيم الابتدائية
+    int p = (2 * dy) - dx;
+    int pk = p;
+
+    int steps = max(dx, dy);
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
+    putpixel(x1, y1, WHITE);
+
+    cout << "Step\t"
+         << "Pk\t"
+         << "X\t"
+         << "Y\n";
+
+    for (int i = 0; i <= steps; i++) {
+        if (pk < 0) {
+            cout << "\t" << i << "\t" << pk << "\t" << x1 << "\t" << y1 << "\n";
+            x1++;
+            pk = pk + 2 * dy;
+        } else {
+            cout << "\t" << i << "\t" << pk << "\t" << x1 << "\t" << y1 << "\n";
+            x1++;
+            y1++;
+            pk = pk + 2 * dy - 2 * dx;
+        }
+        putpixel(x1, y1, WHITE);
+    }
+
+    getch();
+    closegraph();
+}
+
+int main() {
+    lineBresenham();
+    return 0;
+}

@@ -1,0 +1,51 @@
+#include <iostream>
+#include <math.h>
+#include <conio.h>
+#include <graphics.h>
+using namespace std;
+
+void CircleMidPoint()
+{
+    int xc, yc, r;
+    cout << "Enter The Center ( Xc, Yc ) of The Circle: \n";
+    cin >> xc >> yc;
+    cout << "Enter The Radius of the Center : \n";
+    cin >> r;
+    int x = 0;
+    int y = r;
+    float pn = 5.0 / 4.0 - r;
+    float pk = pn;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
+
+    while (x <= y)
+    {
+        putpixel(xc + x, yc + y, MAGENTA);
+        putpixel(xc + y, yc + x, BLUE);
+        putpixel(xc - y, yc + x, BROWN);
+        putpixel(xc - x, yc + y, WHITE);
+        putpixel(xc - x, yc - y, BROWN);
+        putpixel(xc - y, yc - x, WHITE);
+        putpixel(xc + x, yc - y, BLUE);
+        putpixel(xc + y, yc - x, MAGENTA);
+        if (pk < 0)
+        {
+            pk = pk + 2 * x + 3;
+            x++;
+        }
+        else
+        {
+            pk = pk + 2 * x - 2 * y + 5;
+            x++;
+            y--;
+        }
+    }
+    getch();
+    closegraph();
+}
+
+int main()
+{
+    CircleMidPoint();
+    return 0;
+}
